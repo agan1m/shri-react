@@ -3,12 +3,12 @@ import { Switch, Route, NavLink } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
 const LoadableHome = Loadable({
-  loader: () => import('../components/Home'),
+  loader: () => import('../../components/Home'),
   loading: () => <div>Loading...</div>
 });
 
 const LoadableAbout = Loadable({
-  loader: () => import('../components/about/About'),
+  loader: () => import('../../components/about/About'),
   loading: () => <div>Loading...</div>
 });
 

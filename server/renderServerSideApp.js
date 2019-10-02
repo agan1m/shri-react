@@ -4,13 +4,17 @@ import { StaticRouter } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import { Provider } from 'react-redux';
 import { getBundles } from 'react-loadable/webpack';
-import App from '../src/components/App';
+import stats from '../build/react-loadable.json';
+import App from '../src/containers/App';
 import { fetchDataForRender } from './fetchDataForRender';
 import { indexHtml } from './indexHtml';
+import createStore from '../src/createStore';
+
 
 const ServerApp = ({ context, data, location }) => {
+  const store = createStore(data);
   return (
-    <Provider store={data}>
+    <Provider store={store}>
       <StaticRouter location={location} context={context}>
         <App />
       </StaticRouter>
