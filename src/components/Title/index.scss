@@ -1,0 +1,56 @@
+.Title {
+  padding: 12px 0;
+
+  &-Main {
+    display: flex;
+    margin-bottom: 10px;
+
+    &-Back {
+      display: none;
+    }
+
+    &_align_right {
+      margin-left: auto;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .Title {
+    &_withBtn {
+      padding-top: 44px;
+    }
+
+    position: relative;
+    &-Main {
+      &-Back {
+        display: block;
+        position: absolute;
+        top: 16px;
+        left: 0;
+        font-size: 13px;
+        line-height: 15px;
+        color: #7f8285;
+        padding-left: 16px;
+        font-weight: 400;
+        &::before {
+          content: '';
+          width: 10px;
+          height: 10px;
+          border-top: 1px solid #7f8285;
+          border-left: 1px solid #7f8285;
+          position: absolute;
+          top: 3px;
+          left: 0;
+          transform: rotate(-50deg);
+        }
+      }
+
+      &_align_right {
+        position: absolute;
+        right: 0;
+        top: 8px;
+      }
+    }
+  }
+}

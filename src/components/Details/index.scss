@@ -1,0 +1,30 @@
+.Details {
+    border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+    border-radius: 2px;
+    margin-top: 16px;
+}
+
+.Details-Header {
+    background-color: #F5F5F5;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-Left {
+        padding: 2px 0;
+        padding-left: 20px;
+        //background-image: url('../img/file.svg');
+        background-repeat: no-repeat;
+        background-position: left center;
+    }
+}
+
+@media (max-width: 360px) {
+    .Details-Header {
+        &_hide {
+            display: none;
+        }
+    }
+}

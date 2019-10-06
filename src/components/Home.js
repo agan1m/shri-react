@@ -15,7 +15,7 @@ const Home = () => {
           e.preventDefault();
 
           const newTodo = {
-            text
+            text,
           };
 
           api.todos.create(newTodo).then(res => {
@@ -26,13 +26,7 @@ const Home = () => {
       >
         <label htmlFor="todo">Add a todo</label>
         <br />
-        <input
-          id="todo"
-          type="text"
-          value={text}
-          autoComplete="off"
-          onChange={e => setText(e.target.value)}
-        />
+        <input id="todo" type="text" value={text} autoComplete="off" onChange={e => setText(e.target.value)} />
       </form>
 
       <ul>

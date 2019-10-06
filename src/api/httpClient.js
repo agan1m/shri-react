@@ -19,8 +19,8 @@ export function httpClient(baseURL) {
         body: JSON.stringify(body),
         headers: {
           'Content-Type': 'application/json',
-          ...options.headers
-        }
+          ...options.headers,
+        },
       }).then(res => {
         if (!res.ok) {
           throw new Error(res.statusText);
@@ -28,6 +28,6 @@ export function httpClient(baseURL) {
 
         return res.json();
       });
-    }
+    },
   };
 }

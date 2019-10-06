@@ -31,13 +31,10 @@ module.exports = function(envType) {
   config.devtool = IS_DEV ? 'cheap-module-source-map' : 'source-map';
 
   config.entry = IS_DEV
-    ? [
-        'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
-        resolvePath('../src/index.js')
-      ]
+    ? ['webpack-hot-middleware/client?path=/__webpack_hmr&reload=true', resolvePath('../src/index.js')]
     : {
         polyfills: resolvePath('../src/polyfills.js'),
-        main: resolvePath('../src/index.js')
+        main: resolvePath('../src/index.js'),
       };
 
   config.output = IS_DEV
@@ -45,13 +42,13 @@ module.exports = function(envType) {
         path: resolvePath('../build'),
         filename: '[name].bundle.js',
         chunkFilename: '[name].chunk.js',
-        publicPath: PUBLIC_URL + '/'
+        publicPath: PUBLIC_URL + '/',
       }
     : {
         path: resolvePath('../build'),
         filename: 'static/js/[name].[chunkhash:8].js',
         chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
-        publicPath: PUBLIC_URL + '/'
+        publicPath: PUBLIC_URL + '/',
       };
 
   config.module = {
@@ -63,12 +60,12 @@ module.exports = function(envType) {
         use: [
           {
             options: {
-              formatter: eslintFormatter
+              formatter: eslintFormatter,
             },
-            loader: 'eslint-loader'
-          }
+            loader: 'eslint-loader',
+          },
         ],
-        include: resolvePath('../src')
+        include: resolvePath('../src'),
       },
 
       // Babel
@@ -78,8 +75,8 @@ module.exports = function(envType) {
         loader: 'babel-loader',
         options: {
           cacheDirectory: IS_DEV,
-          compact: IS_PROD
-        }
+          compact: IS_PROD,
+        },
       },
 
       // CSS Modules
@@ -93,8 +90,8 @@ module.exports = function(envType) {
             loader: 'css-loader',
             options: {
               localsConvention: 'camelCase',
-              modules: true
-            }
+              modules: true,
+            },
           },
           {
             loader: 'postcss-loader',
@@ -103,14 +100,14 @@ module.exports = function(envType) {
               plugins: () => [
                 require('postcss-flexbugs-fixes'),
                 autoprefixer({
-                  flexbox: 'no-2009'
-                })
-              ]
-            }
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
           },
           'sass-loader',
-          'import-glob-loader'
-        ].filter(Boolean)
+          'import-glob-loader',
+        ].filter(Boolean),
       },
 
       // CSS
@@ -129,16 +126,27 @@ module.exports = function(envType) {
               plugins: () => [
                 require('postcss-flexbugs-fixes'),
                 autoprefixer({
-                  flexbox: 'no-2009'
-                })
-              ]
-            }
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
           },
           'sass-loader',
-          'import-glob-loader'
-        ].filter(Boolean)
-      }
-    ].filter(Boolean)
+          'import-glob-loader',
+        ].filter(Boolean),
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        issuer: {
+          test: /\.js?$/,
+        },
+        use: ['babel-loader', '@svgr/webpack', 'url-loader'],
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader',
+      },
+    ].filter(Boolean),
   };
 
   config.optimization = IS_DEV
@@ -150,12 +158,12 @@ module.exports = function(envType) {
             sourceMap: true,
             uglifyOptions: {
               output: {
-                comments: false
-              }
-            }
+                comments: false,
+              },
+            },
           }),
-          new OptimizeCSSAssetsPlugin({})
-        ]
+          new OptimizeCSSAssetsPlugin({}),
+        ],
       };
 
   config.plugins = [
@@ -167,22 +175,22 @@ module.exports = function(envType) {
     IS_DEV && new ErrorOverlayPlugin(),
     IS_PROD &&
       new MiniCssExtractPlugin({
-        filename: 'static/css/[name].[contenthash:8].css'
+        filename: 'static/css/[name].[contenthash:8].css',
       }),
     IS_PROD &&
       new ManifestPlugin({
-        fileName: 'asset-manifest.json'
+        fileName: 'asset-manifest.json',
       }),
     new ReactLoadablePlugin({
-      filename: 'build/react-loadable.json'
-    })
+      filename: 'build/react-loadable.json',
+    }),
   ].filter(Boolean);
 
   config.node = {
     dgram: 'empty',
     fs: 'empty',
     net: 'empty',
-    tls: 'empty'
+    tls: 'empty',
   };
 
   return config;

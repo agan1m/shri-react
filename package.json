@@ -6,7 +6,7 @@
     "node": ">=10.15"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node scripts/start.js /media/vitaliy/'Новый том'/Coding/algorithms",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "eslint src/**/*.js",
@@ -27,6 +27,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-css-modules-transform": "^1.6.2",
     "babel-plugin-dynamic-import-node": "^2.3.0",
+    "bem-cn": "^3.0.1",
     "body-parser": "^1.19.0",
     "case-sensitive-paths-webpack-plugin": "^2.2.0",
     "chalk": "^2.4.2",
@@ -81,6 +82,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "url-loader": "2.2.0"
   }
 }

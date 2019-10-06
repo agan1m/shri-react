@@ -1,0 +1,28 @@
+.ReposTable-Row {
+  display: flex;
+  padding: 16px 8px;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .ReposTable-Row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    position: relative;
+    &::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border-left: 2px solid #e5e5e5;
+      border-top: 2px solid #e5e5e5;
+      position: absolute;
+      right: 6px;
+      top: calc(50% - 8px);
+      transform: rotate(130deg);
+    }
+  }
+}

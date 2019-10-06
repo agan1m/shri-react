@@ -1,36 +1,34 @@
 import React from 'react';
-import { Switch, Route, NavLink } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import SubHeader from '../../components/SubHeader';
+import Title from '../../components/Title';
+import './index.scss';
 
-const LoadableHome = Loadable({
-  loader: () => import('../../components/Home'),
-  loading: () => <div>Loading...</div>
+const LoadableFiles = Loadable({
+  loader: () => import('../FilesPage'),
+  loading: () => <div>Loading...</div>,
 });
 
-const LoadableAbout = Loadable({
-  loader: () => import('../../components/about/About'),
-  loading: () => <div>Loading...</div>
+const LoadableFile = Loadable({
+  loader: () => import('../FilePage'),
+  loading: () => <div>Loading...</div>,
 });
 
 const App = () => (
   <div className="app">
-    <nav aria-label="main navigation">
-      <NavLink exact to="/" activeClassName="active">
-        Home
-      </NavLink>{' '}
-      <NavLink exact to="/about" activeClassName="active">
-        About
-      </NavLink>
-    </nav>
-
-    <main className="main">
+    <Header />
+    <main className="Container">
+      <SubHeader />
+      <Title />
       <Switch>
-        <Route exact path="/" component={LoadableHome} />
-        <Route path="/about" component={LoadableAbout} />
+        <Route exact path="/" component={LoadableFiles} />
+        <Route exact path="/:file" component={LoadableFile} />
       </Switch>
     </main>
-
-    <footer />
+    <Footer />
   </div>
 );
 

@@ -1,0 +1,13 @@
+.Container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 32px;
+  box-sizing: border-box;
+  padding-bottom: 120px;
+}
+
+@media (max-width: 360px) {
+  .Container {
+    padding: 0 16px;
+  }
+}

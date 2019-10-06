@@ -6,6 +6,6 @@ export function todosApi(http) {
 
     create: newTodo => {
       return http.post('/api/todos', newTodo);
-    }
+    },
   };
 }

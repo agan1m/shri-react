@@ -1,0 +1,76 @@
+.ReposTable-Col {
+  box-sizing: border-box;
+  overflow: hidden;
+  &_size_name {
+    width: 242px;
+  }
+  &_size_lastCommit {
+    width: 258px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &_size_message {
+    width: 476px;
+  }
+  &_size_commiter {
+    width: 285px;
+  }
+  &_size_updated {
+    text-align: right;
+  }
+  &_image_folder {
+    //background-image: url('./static/folder.svg');
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    background-position: left center;
+  }
+  &_image_file {
+   // background-image: url('./static/file.svg');
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    background-position: left center;
+  }
+  &_image_branch {
+    //background-image: url('./static/branch.svg');
+    background-repeat: no-repeat;
+    padding-left: 18px;
+    background-position: left center;
+  }
+  &_align_right {
+    text-align: right;
+  }
+}
+
+@media (max-width: 360px) {
+  .ReposTable-Col {
+    margin-bottom: 7px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &_size_name {
+      width: 100%;
+    }
+
+    &_size_lastCommit {
+      width: 20%;
+      order: 1;
+    }
+
+    &_size_message {
+      width: 100%;
+      order: 0;
+    }
+
+    &_size_commiter {
+      width: auto;
+      order: 2;
+    }
+
+    &_size_updated {
+      text-align: left;
+      order: 3;
+    }
+  }
+}

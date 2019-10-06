@@ -1,12 +1,9 @@
-
-
 const initialState = {
-    isLoading: false,
-}
+  isLoading: false,
+};
 
 function appReducer(state = initialState, action) {
-
-    return state
+  return state;
 }
 
 export default appReducer;
