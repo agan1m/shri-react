@@ -4,21 +4,29 @@ import { connect } from 'react-redux';
 import ReposTable from '../../components/ReposTabel';
 import Tabs from '../../components/Tabs';
 import { filesSuccess } from './actions';
+import api from '../../api';
 
 class FilesPage extends Component {
   componentDidMount() {
-    const { filesSuccess } = this.props;
-    fetch('/repos', {
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(res => {
-        filesSuccess(res.data);
-      })
+    const { filesSuccess, location } = this.props;
+    const { pathname } = location;
+
+    api.files
+      .getFiles(pathname !== '/' ? pathname : '')
+      .then(res => filesSuccess(res.data))
       .catch(err => window.console.log(err));
+  }
+
+  componentDidUpdate(prevProps) {
+    const { location, filesSuccess } = this.props;
+    const { pathname } = location;
+
+    if (prevProps.location.pathname !== pathname) {
+      api.files
+        .getFiles(pathname)
+        .then(res => filesSuccess(res.data))
+        .catch(err => window.console.log(err));
+    }
   }
 
   render() {

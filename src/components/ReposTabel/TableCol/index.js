@@ -9,6 +9,8 @@ const block = setup({
 });
 
 const b = block('ReposTable');
-const TableCol = ({ content, mod, mix = [] }) => <div className={b('Col', mod)}>{content || ''}</div>;
+const TableCol = ({ content, mod, mix = [] }) => {
+  return <div className={b('Col', mod).mix(mix)}>{content || ''}</div>;
+};
 
 export default TableCol;

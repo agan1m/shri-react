@@ -1,11 +1,13 @@
 import { httpClient } from './httpClient';
-import { todosApi } from './todosApi';
+import { filesApi } from './filesApi';
 
 export function apiFactory(http) {
   return {
-    todos: todosApi(http),
+    files: filesApi(http),
   };
 }
 
 const http = httpClient('http://localhost:3000');
-export const api = apiFactory(http);
+const api = apiFactory(http);
+
+export default api;

@@ -2,67 +2,39 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const rmDir = require('../utils/rmdirUtil');
+const execShellCommand = require('../utils/execShellCommand');
 
 exports.getReposList = (req, res) => {
   const { repositoryId = '' } = req.params;
-  // const files = await fs.readdir(global.reposPath, (err, files) => {
-  //   if (err) {
-  //     throw err;
-  //   }
 
-  // });
-//let files = ''
-  execShellCommand(`git ls-tree --name-only master`, '', {cwd: path.join(global.reposPath, repositoryId)}).then(files => {
-    files = files.split('\n');
-    return Promise.all(files.map(file => file && execShellCommand(`git log -1 --pretty=format:"%H-%an-%cr-%B" ${file}`, file, {cwd: path.join(global.reposPath, repositoryId)})))
-   
-  }).then(out => {
-    const data = out.map(file => {
-      file = file.split('-');
+  execShellCommand(`git ls-tree --name-only master`, '', { cwd: path.join(global.reposPath, repositoryId) })
+    .then(files => {
+      files = files.split('\n');
+      return Promise.all(
+        files.map(
+          file =>
+            file &&
+            execShellCommand(`git log -1 --pretty=format:"%H-%an-%cr-%B" ${file}`, file, {
+              cwd: path.join(global.reposPath, repositoryId),
+            }),
+        ),
+      );
+    })
+    .then(out => {
+      const data = out.map(file => {
+        file = file.split('-');
         return {
           name: file[4],
           hash: file[0],
           author: file[1],
           date: file[2],
           message: file[3],
-          isFile: !!String(file[4]).match(/^([a-zA-Z0-9\s_\\.\-\(\):])+\.(jpg|png|gif|js|md|txt|css|scss|json)$/),
+          isFile: !!String(file[4]).match(/(\.[a-z]+)$/),
         };
+      });
+      res.json({ data });
     });
-    res.json({data})
-  });
-  // exec(
-  //   `git ls-tree --name-only master`,
-  //   {
-  //     cwd: path.join(global.reposPath),
-  //   },
-  //   (err, stdout) => {
-  //     if (err) {
-  //       console.log(err);
-  //       return res.status(500).json({ message: 'Server error' });
-  //     }
-  //     console.log(stdout);
-  //     files = stdout;
-  //   },
-  // );
-  // console.log(files);
-  
-  
-  // res.json({ data: files });
 };
-
-function execShellCommand(cmd, fileName = '', options = {}) {
-  return new Promise((resolve, reject) => {
-   exec(cmd, { 
-    cwd: path.join(global.reposPath),
-    ...options
-  }, (error, stdout, stderr) => {
-    if (error) {
-     console.warn(error);
-    }
-    resolve(stdout ? (fileName ? stdout + `-${fileName}` : stdout) : stderr);
-   });
-  });
- }
 
 exports.deleteRepoById = (req, res) => {
   const { repositoryId } = req.params;
@@ -155,30 +127,13 @@ exports.getTree = (req, res) => {
 exports.getFileContent = (req, res) => {
   const { repositoryId = '', commitHash, pathToFile } = req.params;
 
-  fs.re
-
   fs.readFile(path.join(global.reposPath, repositoryId), 'utf8', (err, data) => {
-    if(err) {
+    if (err) {
       console.log(err);
       return res.status(500).json({ message: 'Server error' });
     }
-    res.json({ data: data.split('\n') })
-  })
-  // exec(
-  //   `git show ${pathToFile ? `${commitHash}:${pathToFile}`: commitHash}`,
-  //   {
-  //     cwd: path.join(global.reposPath, repositoryId),
-  //     maxBuffer: 1024 * 500
-  //   },
-  //   (err, stdout) => {
-  //     if (err) {
-  //       console.log(err);
-  //       return res.status(500).json({ message: 'Server error' });
-  //     }
-
-  //     res.json({ data: stdout });
-  //   },
-  // );
+    res.json({ data: data.split('\n') });
+  });
 };
 
 exports.addRepo = (req, res) => {

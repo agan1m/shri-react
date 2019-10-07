@@ -24,8 +24,8 @@ const App = () => (
       <SubHeader />
       <Title />
       <Switch>
-        <Route exact path="/" component={LoadableFiles} />
-        <Route exact path="/:file" component={LoadableFile} />
+        <Route exact path="/:file+/blob" component={LoadableFile} />
+        <Route path="/" component={LoadableFiles} />
       </Switch>
     </main>
     <Footer />

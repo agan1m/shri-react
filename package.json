@@ -6,6 +6,7 @@
     "node": ">=10.15"
   },
   "scripts": {
+    "start:win": "node scripts/start.js C:\\Users\\MarsovVI\\Desktop\\worker\\tus-spa",
     "start": "node scripts/start.js /media/vitaliy/'Новый том'/Coding/algorithms",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
@@ -47,6 +48,7 @@
     "eslint-plugin-react-hooks": "^2.0.1",
     "express": "^4.17.1",
     "fs-extra": "^8.1.0",
+    "git-bash-shell": "^2.5.0",
     "helmet": "^3.20.1",
     "husky": "^3.0.5",
     "import-glob-loader": "^1.1.0",

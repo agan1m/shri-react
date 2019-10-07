@@ -18,7 +18,9 @@ router.get('/repos/:repositoryId/commits/:commitHash/diff', getDiffCommit);
 
 // router.get('/repos/:repositoryId', getTree);
 
+router.get('/repos/:repositoryId([^/]*)/blob', getFileContent);
 router.get('/repos/:repositoryId', getReposList);
+router.get('/repos/:repositoryId([^/]*)', getReposList);
 
 router.get('/repos/:repositoryId/tree/:commitHash?/:path([^/]*)', getTree);
 
@@ -26,7 +28,6 @@ router.get('/repos/:repositoryId/tree/:commitHash?/:path([^/]*)', getTree);
 
 //router.get('/repos/blob/:commitHash/:pathToFile([^/]*)', getFileContent);
 
-router.get('/repos/:repositoryId/blob', getFileContent);
 
 router.post('/repos', addRepo);
 

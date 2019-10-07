@@ -4,22 +4,16 @@ import { connect } from 'react-redux';
 import Details from '../../components/Details';
 import Tabs from '../../components/Tabs';
 import { fileSuccess } from './actions';
+import api from '../../api';
 
 class FilePage extends Component {
   componentDidMount() {
     const { fileSuccess, match } = this.props;
     const { file } = match.params;
-
-    fetch(`/repos/${file}/blob`, {
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(res => {
-        fileSuccess(res.data);
-      })
+    
+    api.files
+      .getFile(file)
+      .then(res => fileSuccess(res.data))
       .catch(err => window.console.log(err));
   }
 

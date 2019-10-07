@@ -1,7 +1,27 @@
 .SubHeader {
-    border-bottom: 1px solid #F0F2F3;
-    padding: 12px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  border-bottom: 1px solid #f0f2f3;
+  padding: 12px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.SubHeader-Item {
+  margin-right: 5px;
+
+  &::before {
+    content: '/';
+    font-size: 16px;
+    margin-right: 5px;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:first-child {
+    &::before {
+      display: none;
+    }
+  }
 }

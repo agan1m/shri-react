@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { setup } from 'bem-cn';
 import './index.scss';
+import api from '../../api';
 
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableRow from './TableRow';
 import TableCol from './TableCol';
 
+const block = setup({
+  el: '-',
+  mod: '_',
+  modValue: '_',
+});
+
+const b = block('Text');
+
 class ReposTable extends Component {
   handlerRowClick = item => {
-    const { history } = this.props;
+    const { history, location } = this.props;
     const { name, isFile } = item;
-
+    const { pathname } = location;
+    const currentPath = pathname !== '/' ? `${pathname}/${name}` : `/${name}`;
     if (isFile) {
-      history.push(`/${name}`);
+      history.push(`${currentPath}/blob`);
     } else {
-      const { filesSuccess } = this.props;
-      fetch(`/repos/${name}`, {
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(response => response.json())
-        .then(res => {
-          filesSuccess(res.data);
-        })
-        .catch(err => window.console.log(err));
+      history.push(currentPath);
     }
   };
 
@@ -46,8 +46,12 @@ class ReposTable extends Component {
         <TableBody>
           {data.map(item => (
             <TableRow key={item.name} onClick={() => this.handlerRowClick(item)}>
-              <TableCol mod={{ size: 'name' }} content={item.name} />
-              <TableCol mod={{ size: 'lastCommit' }} content={item.hash} />
+              <TableCol
+                mod={{ size: 'name', image: item.isFile ? 'file' : 'folder' }}
+                mix={[b({ h3: true })]}
+                content={item.name}
+              />
+              <TableCol mod={{ size: 'lastCommit' }} mix={['Text', b('Link')]} content={item.hash} />
               <TableCol mod={{ size: 'message' }} content={item.message} />
               <TableCol mod={{ size: 'commiter' }} content={item.author} />
               <TableCol mod={{ size: 'updated' }} content={item.date} />
