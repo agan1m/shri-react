@@ -8,7 +8,8 @@
 
 .SubHeader-Item {
   margin-right: 5px;
-
+  text-decoration: none;
+  color: #000;
   &::before {
     content: '/';
     font-size: 16px;

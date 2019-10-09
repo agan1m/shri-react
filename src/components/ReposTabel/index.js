@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { setup } from 'bem-cn';
 import './index.scss';
-import api from '../../api';
 
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
