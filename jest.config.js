@@ -3,7 +3,8 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/config/jest/setupTestsAfterEnv.js'],
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.js?(x)',
-    '<rootDir>/src/**/?(*.)(spec|test).js?(x)'
+    '<rootDir>/server/**/__tests__/**/*.js?(x)',
+    '<rootDir>/src/**/?(*.)(spec|test).js?(x)',
   ],
   testEnvironment: 'jsdom',
   testURL: 'http://localhost',

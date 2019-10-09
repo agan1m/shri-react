@@ -23,14 +23,16 @@ exports.getReposList = (req, res) => {
     .then(out => {
       const data = out.map(file => {
         file = file.split('-');
-        return {
-          name: file[4],
-          hash: file[0],
-          author: file[1],
-          date: file[2],
-          message: file[3],
-          isFile: !!String(file[4]).match(/(\.[a-z]+)$/),
-        };
+        if (file && file[0]) {
+          return {
+            name: file[4],
+            hash: file[0],
+            author: file[1],
+            date: file[2],
+            message: file[3],
+            isFile: !!String(file[4]).match(/(\.[a-z]+)$/),
+          };
+        }
       });
       res.json({ data });
     });
@@ -43,7 +45,7 @@ exports.deleteRepoById = (req, res) => {
     if (err) {
       throw err;
     }
-    res.json({ data: {}, isSuccess: true });
+    res.json({ isSuccess: true });
   });
 };
 
@@ -125,7 +127,7 @@ exports.getTree = (req, res) => {
 };
 
 exports.getFileContent = (req, res) => {
-  const { repositoryId = '', commitHash, pathToFile } = req.params;
+  const { repositoryId = '' } = req.params;
 
   fs.readFile(path.join(global.reposPath, repositoryId), 'utf8', (err, data) => {
     if (err) {
