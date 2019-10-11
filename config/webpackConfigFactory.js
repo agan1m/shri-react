@@ -42,7 +42,7 @@ module.exports = function(envType) {
         path: resolvePath('../build'),
         filename: '[name].bundle.js',
         chunkFilename: '[name].chunk.js',
-        publicPath: PUBLIC_URL + '/',
+        //publicPath: PUBLIC_URL + '/',
       }
     : {
         path: resolvePath('../build'),
@@ -78,7 +78,11 @@ module.exports = function(envType) {
           compact: IS_PROD,
         },
       },
-
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        loader: 'awesome-typescript-loader',
+      },
       // CSS Modules
       {
         test: /\.module\.s?css$/,
@@ -148,7 +152,9 @@ module.exports = function(envType) {
       },
     ].filter(Boolean),
   };
-
+  config.resolve = {
+    extensions: ['.ts', '.tsx', '.js'],
+  };
   config.optimization = IS_DEV
     ? {}
     : {
@@ -171,7 +177,7 @@ module.exports = function(envType) {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new LodashModuleReplacementPlugin(),
     IS_DEV && new webpack.HotModuleReplacementPlugin(),
-    IS_DEV && new CaseSensitivePathsPlugin(),
+    //IS_DEV && new CaseSensitivePathsPlugin(),
     IS_DEV && new ErrorOverlayPlugin(),
     IS_PROD &&
       new MiniCssExtractPlugin({

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "paths": { "*": ["*"] },
+      "esModuleInterop": true,
+      "alwaysStrict": false,
+      "baseUrl": "./src",
+      "outDir": "./build",
+      "target": "esnext",
+      "allowJs": true,
+      "module": "commonjs",
+      "noImplicitAny": false,
+      "removeComments": true,
+      "sourceMap": true,
+      "jsx": "react",
+      "files": ["custom.d.ts"],
+    },
+    "exclude": ["node_modules", "dist"],
+    "types": ["typePatches"]
+  }

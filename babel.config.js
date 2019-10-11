@@ -6,22 +6,23 @@ module.exports = function(api) {
       '@babel/preset-env',
       {
         targets: {
-          browsers: ['>1%', 'ie 11', 'not op_mini all']
-        }
-      }
+          browsers: ['>1%', 'ie 11', 'not op_mini all'],
+        },
+      },
     ],
-    '@babel/preset-react'
+    '@babel/preset-react',
+    ['@babel/preset-typescript', {}],
   ];
 
   const plugins = [
     'react-loadable/babel',
     '@babel/plugin-transform-runtime',
     '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-syntax-dynamic-import'
+    '@babel/plugin-syntax-dynamic-import',
   ];
 
   return {
     presets,
-    plugins
+    plugins,
   };
 };

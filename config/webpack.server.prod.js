@@ -16,19 +16,22 @@ module.exports = {
   mode: 'production',
   target: 'node',
   node: {
-    __dirname: true
+    __dirname: true,
   },
-  entry: './server/app.js',
+  entry: './server/app.ts',
   output: {
     path: resolvePath('../build'),
     filename: 'server.js',
     publicPath: PUBLIC_URL + '/',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
@@ -39,12 +42,17 @@ module.exports = {
                 camelCase: true,
                 extensions: ['.css', '.scss'],
                 generateScopedName: '[hash:base64]',
-                ignore: 'src/styles'
-              }
+                ignore: 'src/styles',
+              },
             ],
-            'dynamic-import-node'
-          ]
-        }
+            'dynamic-import-node',
+          ],
+        },
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        loader: 'awesome-typescript-loader',
       },
       {
         test: /\.s?css$/,
@@ -54,14 +62,14 @@ module.exports = {
             loader: 'css-loader',
             options: {
               localsConvention: 'camelCase',
-              modules: true
-            }
+              modules: true,
+            },
           },
           'sass-loader',
-          'import-glob-loader'
-        ]
-      }
-    ]
+          'import-glob-loader',
+        ],
+      },
+    ],
   },
-  externals: [nodeExternals()]
+  externals: [nodeExternals()],
 };
