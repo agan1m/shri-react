@@ -43,19 +43,22 @@ class ReposTable extends Component {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map(item => (
-            <TableRow key={item.name} onClick={() => this.handlerRowClick(item)}>
-              <TableCol
-                mod={{ size: 'name', image: item.isFile ? 'file' : 'folder' }}
-                mix={[b({ h3: true })]}
-                content={item.name}
-              />
-              <TableCol mod={{ size: 'lastCommit' }} mix={['Text', b('Link')]} content={item.hash} />
-              <TableCol mod={{ size: 'message' }} content={item.message} />
-              <TableCol mod={{ size: 'commiter' }} content={item.author} />
-              <TableCol mod={{ size: 'updated' }} content={item.date} />
-            </TableRow>
-          ))}
+          {data.map(
+            item =>
+              item && (
+                <TableRow key={item.name} onClick={() => this.handlerRowClick(item)}>
+                  <TableCol
+                    mod={{ size: 'name', image: item.isFile ? 'file' : 'folder' }}
+                    mix={[b({ h3: true })]}
+                    content={item.name}
+                  />
+                  <TableCol mod={{ size: 'lastCommit' }} mix={['Text', b('Link')]} content={item.hash} />
+                  <TableCol mod={{ size: 'message' }} content={item.message} />
+                  <TableCol mod={{ size: 'commiter' }} content={item.author} />
+                  <TableCol mod={{ size: 'updated' }} content={item.date} />
+                </TableRow>
+              ),
+          )}
         </TableBody>
       </div>
     );
