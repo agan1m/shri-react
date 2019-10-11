@@ -3,7 +3,7 @@
       "paths": { "*": ["*"] },
       "esModuleInterop": true,
       "alwaysStrict": false,
-      "baseUrl": "./src",
+      "baseUrl": ".",
       "outDir": "./build",
       "target": "esnext",
       "allowJs": true,

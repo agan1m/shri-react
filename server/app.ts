@@ -1,27 +1,24 @@
-const path = require('path');
-const express = require('express');
+import path from 'path';
+import express, { Request, Response } from 'express';
 
-// const { Request, Response } = require('express');
+import compression from 'compression';
 
-const compression = require('compression');
+import helmet from 'helmet';
 
-const helmet = require('helmet');
+import morgan from 'morgan';
 
-const morgan = require('morgan');
+import responseTime from 'response-time';
+import bodyParser from 'body-parser';
 
-const responseTime = require('response-time');
-const bodyParser = require('body-parser');
+import { renderServerSideApp } from './renderServerSideApp';
 
-const { renderServerSideApp } = require('./renderServerSideApp');
-
-//const router = require('./routes');
+import router from './routes';
 
 const { PUBLIC_URL = '' } = process.env;
 global.reposPath = process.argv[2];
 
-const app = express();
+export const app = express();
 
-exports.app;
 
 app.use(compression());
 app.use(helmet());
@@ -35,13 +32,10 @@ app.use(PUBLIC_URL, express.static(path.resolve(__dirname, '../public')));
 app.use(morgan('tiny'));
 
 app.use(router);
-// @ts-ignore
+
 app.use(
-  // @ts-ignore
-  responseTime((req, res: Express.Response, time: number) => {
-    // @ts-ignore
+  responseTime((req: Request, res: Response, time: number) => {
     res.setHeader('X-Response-Time', time.toFixed(2) + 'ms');
-    // @ts-ignore
     res.setHeader('Server-Timing', `renderServerSideApp;dur=${time}`);
   }),
 );
@@ -49,6 +43,5 @@ app.use(
 app.use(renderServerSideApp);
 
 app.use((req: Request, res: Response) => {
-  // @ts-ignore
   res.status(404).json({ message: 'Not found' });
 });

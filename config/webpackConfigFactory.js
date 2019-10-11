@@ -70,7 +70,7 @@ module.exports = function(envType) {
 
       // Babel
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         include: resolvePath('../src'),
         loader: 'babel-loader',
         options: {
@@ -78,11 +78,11 @@ module.exports = function(envType) {
           compact: IS_PROD,
         },
       },
-      {
+     /*  {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'awesome-typescript-loader',
-      },
+      }, */
       // CSS Modules
       {
         test: /\.module\.s?css$/,

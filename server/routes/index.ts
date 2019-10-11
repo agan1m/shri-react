@@ -1,4 +1,4 @@
-//const express = require('express');
+const express = require('express');
 const router = express.Router();
 const {
   getReposList,
@@ -33,4 +33,4 @@ router.post('/repos', addRepo);
 
 router.delete('/repos/:repositoryId', deleteRepoById);
 
-module.exports = router;
+export default router;

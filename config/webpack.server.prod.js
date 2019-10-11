@@ -18,7 +18,7 @@ module.exports = {
   node: {
     __dirname: true,
   },
-  entry: './server/app.ts',
+  entry: './server/app.js',
   output: {
     path: resolvePath('../build'),
     filename: 'server.js',

@@ -59,7 +59,7 @@ exports.getCommits = (req: Request, res: Response) => {
     {
       cwd: path.join(global.reposPath, repositoryId),
     },
-    (err, stdout) => {
+    (err: Error, stdout: string) => {
       if (err) {
         console.log(err);
         return res.status(500).json({ message: 'Server error' });
